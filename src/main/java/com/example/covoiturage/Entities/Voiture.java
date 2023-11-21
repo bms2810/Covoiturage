@@ -1,9 +1,6 @@
 package com.example.covoiturage.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Voiture {
@@ -15,11 +12,17 @@ public class Voiture {
     private String marque;
     private String couleur;
     private int annee;
+    //Si on supprime une voiture => on ne supprime pas le conducteur
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name="conducteur_id")//colonne de jointure (clé étrangère)
+    private Conducteur conducteur;
 
     public Voiture() {
     }
 
-    public Voiture(String immatriculation, String modele, String marque, String couleur, int annee) {
+    public Voiture(int id_voiture, String immatriculation, String modele, String marque, String couleur, int annee) {
+        this.id_voiture = id_voiture;
         this.immatriculation = immatriculation;
         this.modele = modele;
         this.marque = marque;
@@ -27,8 +30,7 @@ public class Voiture {
         this.annee = annee;
     }
 
-    public Voiture(int id_voiture, String immatriculation, String modele, String marque, String couleur, int annee) {
-        this.id_voiture = id_voiture;
+    public Voiture(String immatriculation, String modele, String marque, String couleur, int annee) {
         this.immatriculation = immatriculation;
         this.modele = modele;
         this.marque = marque;
@@ -93,6 +95,7 @@ public class Voiture {
                 ", marque='" + marque + '\'' +
                 ", couleur='" + couleur + '\'' +
                 ", annee=" + annee +
+                ", conducteur=" + conducteur +
                 '}';
     }
 }

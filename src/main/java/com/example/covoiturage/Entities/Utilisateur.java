@@ -1,9 +1,8 @@
 package com.example.covoiturage.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Utilisateur {
@@ -14,30 +13,45 @@ public class Utilisateur {
     private String username;
     private String password;
     private String nom;
-    private String prénom;
+    private String prenom;
     private String adresse;
     private String telephone;
+
+    //1 utilisateur =>1 profile
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="profile_FK")
+    private Profile profile;
+    //1 utilisateur => plusieurs notifications
+    @OneToMany(mappedBy = "utilisateur",
+            fetch = FetchType.EAGER,//va chercher directement les notifications
+            cascade = {CascadeType.ALL})
+    private List<Notification> notifications;//il faut créer les getters et les setters
+    //1 utilisateur => plusieurs notes
+    @OneToMany(mappedBy = "utilisateur",
+            fetch = FetchType.EAGER,//va chercher directement les notifications
+            cascade = {CascadeType.ALL})
+    private List<Note> notes;//il faut créer les getters et les setters
 
     public Utilisateur() {
     }
 
-    public Utilisateur(Integer id, String email, String username, String password, String nom, String prénom, String adresse, String telephone) {
+    public Utilisateur(String email, String username, String password, String nom, String prenom, String adresse, String telephone) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.telephone = telephone;
+    }
+
+    public Utilisateur(Integer id, String email, String username, String password, String nom, String prenom, String adresse, String telephone) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;
         this.nom = nom;
-        this.prénom = prénom;
-        this.adresse = adresse;
-        this.telephone = telephone;
-    }
-
-    public Utilisateur(String email, String username, String password, String nom, String prénom, String adresse, String telephone) {
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.nom = nom;
-        this.prénom = prénom;
+        this.prenom = prenom;
         this.adresse = adresse;
         this.telephone = telephone;
     }
@@ -82,12 +96,12 @@ public class Utilisateur {
         this.nom = nom;
     }
 
-    public String getPrénom() {
-        return prénom;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setPrénom(String prénom) {
-        this.prénom = prénom;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public String getAdresse() {
@@ -114,9 +128,12 @@ public class Utilisateur {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", nom='" + nom + '\'' +
-                ", prénom='" + prénom + '\'' +
+                ", prenom='" + prenom + '\'' +
                 ", adresse='" + adresse + '\'' +
                 ", telephone='" + telephone + '\'' +
+                ", profile=" + profile +
+                ", notifications=" + notifications +
+                ", notes=" + notes +
                 '}';
     }
 }

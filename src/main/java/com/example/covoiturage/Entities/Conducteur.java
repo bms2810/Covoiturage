@@ -1,9 +1,8 @@
 package com.example.covoiturage.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Conducteur extends Utilisateur {
@@ -12,26 +11,31 @@ public class Conducteur extends Utilisateur {
     private int id_Conducteur;
     private String review;
     private String permis_De_Conduire;
+    //1 conducteur => plusieurs voitures
+    @OneToMany(mappedBy = "conducteur",
+            fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    private List<Voiture> voitures;//il faut créer les getters et les setters
+    //1 conducteur => plusieurs trajets
+    @OneToMany(mappedBy = "conducteur",
+            fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    private List<Trajet> trajets;//il faut créer les getters et les setters
 
-   // private Voiture voiture;
 
     public Conducteur() {
     }
 
-    public Conducteur(Integer id, String email, String username, String password, String nom, String prénom, String adresse, String telephone, int id_Conducteur, String review, String permis_De_Conduire) {
-        super(id, email, username, password, nom, prénom, adresse, telephone);
+    public Conducteur(String email, String username, String password, String nom, String prenom, String adresse, String telephone, int id_Conducteur, String review, String permis_De_Conduire) {
+        super(email, username, password, nom, prenom, adresse, telephone);
         this.id_Conducteur = id_Conducteur;
         this.review = review;
         this.permis_De_Conduire = permis_De_Conduire;
-       // this.voiture = voiture;
     }
 
-    public Conducteur(String email, String username, String password, String nom, String prénom, String adresse, String telephone, int id_Conducteur, String review, String permis_De_Conduire, Voiture voiture) {
-        super(email, username, password, nom, prénom, adresse, telephone);
+    public Conducteur(Integer id, String email, String username, String password, String nom, String prenom, String adresse, String telephone, int id_Conducteur, String review, String permis_De_Conduire) {
+        super(id, email, username, password, nom, prenom, adresse, telephone);
         this.id_Conducteur = id_Conducteur;
         this.review = review;
         this.permis_De_Conduire = permis_De_Conduire;
-       // this.voiture = voiture;
     }
 
     public int getId_Conducteur() {
@@ -64,7 +68,8 @@ public class Conducteur extends Utilisateur {
                 "id_Conducteur=" + id_Conducteur +
                 ", review='" + review + '\'' +
                 ", permis_De_Conduire='" + permis_De_Conduire + '\'' +
-               // ", voiture=" + voiture +
+                ", voitures=" + voitures +
+                ", trajets=" + trajets +
                 '}';
     }
 }
