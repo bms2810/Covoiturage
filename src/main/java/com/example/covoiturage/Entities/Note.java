@@ -10,10 +10,12 @@ public class Note {
     private int note;
     private String commentaire;
     //Si on supprime une note => on ne supprime pas l'utilisateur
+
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name="utilisateur_id")//colonne de jointure (clé étrangère)
+    @JoinColumn(name="utilisateur_id")
     private Utilisateur utilisateur;
+
     //Si on supprime une note => on ne supprime pas le trajet
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})

@@ -10,10 +10,10 @@ public class Notification {
     private String message;
     private String type_N;
     //Si on supprime une notification => on ne supprime pas l'utilisateur
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name="utilisateur_Id")//colonne de jointure (clé étrangère)
-    private Utilisateur utilisateur;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name="id")
+  private Utilisateur utilisateur;
+
 
 
     public Notification() {

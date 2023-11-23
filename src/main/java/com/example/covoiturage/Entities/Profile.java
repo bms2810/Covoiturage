@@ -21,6 +21,7 @@ public class Profile {
     public Profile() {
     }
 
+
     public Profile(int id_Profile, int age, String sexe, String description, boolean accepter_animal, boolean accepter_fumeurs) {
         this.id_Profile = id_Profile;
         this.age = age;

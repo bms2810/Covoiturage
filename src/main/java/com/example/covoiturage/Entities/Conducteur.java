@@ -3,12 +3,9 @@ package com.example.covoiturage.Entities;
 import jakarta.persistence.*;
 
 import java.util.List;
-
 @Entity
 public class Conducteur extends Utilisateur {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Conducteur;
+
     private String review;
     private String permis_De_Conduire;
     //1 conducteur => plusieurs voitures
@@ -24,26 +21,16 @@ public class Conducteur extends Utilisateur {
     public Conducteur() {
     }
 
-    public Conducteur(String email, String username, String password, String nom, String prenom, String adresse, String telephone, int id_Conducteur, String review, String permis_De_Conduire) {
-        super(email, username, password, nom, prenom, adresse, telephone);
-        this.id_Conducteur = id_Conducteur;
-        this.review = review;
-        this.permis_De_Conduire = permis_De_Conduire;
-    }
-
     public Conducteur(Integer id, String email, String username, String password, String nom, String prenom, String adresse, String telephone, int id_Conducteur, String review, String permis_De_Conduire) {
         super(id, email, username, password, nom, prenom, adresse, telephone);
-        this.id_Conducteur = id_Conducteur;
         this.review = review;
         this.permis_De_Conduire = permis_De_Conduire;
     }
 
-    public int getId_Conducteur() {
-        return id_Conducteur;
-    }
-
-    public void setId_Conducteur(int id_Conducteur) {
-        this.id_Conducteur = id_Conducteur;
+    public Conducteur(Integer id, String email, String username, String password, String nom, String prenom, String adresse, String telephone, String review, String permis_De_Conduire) {
+        super(id, email, username, password, nom, prenom, adresse, telephone);
+        this.review = review;
+        this.permis_De_Conduire = permis_De_Conduire;
     }
 
     public String getReview() {
@@ -65,7 +52,6 @@ public class Conducteur extends Utilisateur {
     @Override
     public String toString() {
         return "Conducteur{" +
-                "id_Conducteur=" + id_Conducteur +
                 ", review='" + review + '\'' +
                 ", permis_De_Conduire='" + permis_De_Conduire + '\'' +
                 ", voitures=" + voitures +

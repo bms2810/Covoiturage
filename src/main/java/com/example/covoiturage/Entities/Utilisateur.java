@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
-public class Utilisateur {
+
+
+    @Entity
+    @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+    public abstract class Utilisateur {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -132,8 +135,6 @@ public class Utilisateur {
                 ", adresse='" + adresse + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", profile=" + profile +
-                ", notifications=" + notifications +
-                ", notes=" + notes +
                 '}';
     }
 }
