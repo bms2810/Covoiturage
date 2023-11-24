@@ -10,7 +10,7 @@ import java.util.List;
     @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
     public abstract class Utilisateur {
     @Id
-    @GeneratedValue (strategy = GenerationType.TABLE)
+    @GeneratedValue (strategy = GenerationType.TABLE) //ligne modifier
     private Integer id;
     private String email;
     private String username;
